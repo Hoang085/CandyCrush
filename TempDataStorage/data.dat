@@ -1,0 +1,7 @@
+{
+  "$type": "H2910.DataStorage.PersistentData, Assembly-CSharp",
+  "data": {
+    "$type": "System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.Object, mscorlib]], mscorlib",
+    "LAST_ACTIVE_TIME": 17132019261855176
+  }
+}
