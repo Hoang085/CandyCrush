@@ -1,4 +1,5 @@
 ﻿using System;
+using H2910.Level;
 using UnityEditor;
 using UnityEngine;
 
@@ -15,7 +16,7 @@ namespace Mkey
 
         private static void OnHierarchy_Change()
         {
-            GameObject g = null;// Debug.Log("manually hierarchy changed ");
+            GameObject g = null;
             MapMaker[] mGs = GameObject.FindObjectsOfType<MapMaker>();
             if (mGs != null && mGs.Length > 0)
             {
@@ -27,13 +28,3 @@ namespace Mkey
         }
     }
 }
-/*
-        if (Selection.activeObject) g = Selection.activeGameObject;
-
-        if (g)
-        {
-            Debug.Log("manually hierarchy changed " + g.name);
-            MapMaker mp = g.GetComponentInParent<MapMaker>();
-            if (mp) mp.OnManuallyHierChanged();
-        }
-        */

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Mkey
+namespace H2910.Level
 {
 	public class LoadScene : MonoBehaviour
 	{

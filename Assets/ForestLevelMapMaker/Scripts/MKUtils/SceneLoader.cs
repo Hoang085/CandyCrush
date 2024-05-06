@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace Mkey
+namespace H2910.Level
 {
     public class SceneLoader : MonoBehaviour
     {

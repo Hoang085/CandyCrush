@@ -6,7 +6,7 @@ using UnityEngine;
 /*
     09.07.2020 - first
  */
-namespace Mkey
+namespace H2910.Level
 {
     public class TweenIntValue
     {

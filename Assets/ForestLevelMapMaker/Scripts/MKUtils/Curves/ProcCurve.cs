@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 /*
 08102019 - start
 */
-namespace Mkey
+namespace H2910.Level
 {
     public class ProcCurve
     {

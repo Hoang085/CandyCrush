@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-namespace Mkey
+namespace H2910.Level
 {
     public enum MapType { Vertical, Horizontal }
     [DisallowMultipleComponent]
@@ -67,10 +67,7 @@ namespace Mkey
             if (i) i.SetNativeSize();
             return b.GetComponent<Biome>();
         }
-
-        /// <summary>
-        /// Remove from hierarchy biomes without references in biomes list 
-        /// </summary>
+        
         public void CleanExcessBiomes()
         {
             Biome[] b = GetComponentsInChildren<Biome>();
@@ -90,10 +87,7 @@ namespace Mkey
                 GC.Collect();
             }
         }
-
-        /// <summary>
-        /// Remove empty biomes from list
-        /// </summary>
+        
         public void CleanLostBiomes()
         {
             if (biomes == null || biomes.Count == 0) return;
@@ -107,11 +101,7 @@ namespace Mkey
                 }
             }
         }
-
-        /// <summary>
-        /// Remove Biome from List and Destroy
-        /// </summary>
-        /// <param name="index"></param>
+        
         public void RemoveBiome(int index)
         {
             if (biomes != null && index < biomes.Count && index >= 0)
@@ -124,11 +114,7 @@ namespace Mkey
                 }
             }
         }
-
-        /// <summary>
-        /// Remove Biome from List
-        /// </summary>
-        /// <param name="index"></param>
+        
         public void RemoveBiome(Biome biome, bool destroy)
         {
             if (biomes != null && biomes.Contains(biome))
@@ -137,11 +123,7 @@ namespace Mkey
             }
             if (destroy) DestroyImmediate(biome.gameObject);
         }
-
-        /// <summary>
-        /// Remove All Biomes from List and Destroy
-        /// </summary>
-        /// <param name="index"></param>
+        
         public void Clean()
         {
             if (biomes == null || biomes.Count == 0) return;
@@ -160,11 +142,7 @@ namespace Mkey
             }
 
         }
-
-        /// <summary>
-        /// Rebuld the same Map
-        /// </summary>
-        /// <param name="index"></param>
+        
         public void ReBuild()
         {
             int length = biomes.Count;
@@ -197,10 +175,7 @@ namespace Mkey
 
             ReArrangeBiomes();
         }
-
-        /// <summary>
-        /// Rearrange Biomes positions and hierarchy order
-        /// </summary>
+        
         public void ReArrangeBiomes()
         {
             if (biomes == null || biomes.Count == 0) return;
@@ -243,12 +218,7 @@ namespace Mkey
                 }
             }
         }
-
-        /// <summary>
-        /// Change biome type at index
-        /// </summary>
-        /// <param name="index"></param>
-        /// <param name="bType"></param>
+        
         public void ChangeBiome(int index, GameObject prefab)
         {
             Biome b = biomes[index];
@@ -392,32 +362,3 @@ namespace Mkey
         }
     }
 }
-/*
- *     public void OnManuallyHierChanged_old()
-    {
-        Debug.Log(name + " OnManuallyHierChanged()");
-
-
-
-        if (biomes.Count < 2) return;
-        List<Biome> bList = new List<Biome>();
-
-        for (int i = 0; i < biomes.Count; i++)
-        {
-            Biome b = biomes[i];
-            int si = b.transform.GetSiblingIndex();
-            bList.Add(b);
-        }
-        //  bList.ForEach((b) => { Debug.Log(b.transform.GetSiblingIndex()); });
-        bList.Sort((b, c) => {
-            int bi = b.transform.GetSiblingIndex();
-            int ci = c.transform.GetSiblingIndex();
-            if (ci > bi) return -1;
-            if (ci < bi) return 1;
-            return 0;
-        });
-        int it = 0;
-        bList.ForEach((b) => { biomes[it] = b; it++; });
-
-    }
- */

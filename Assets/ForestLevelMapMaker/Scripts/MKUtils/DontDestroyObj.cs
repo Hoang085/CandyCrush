@@ -5,7 +5,7 @@ using System.Collections;
    11112019 - first
  */
 
-namespace Mkey
+namespace H2910.Level
 {
     public class DontDestroyObj : MonoBehaviour
     {

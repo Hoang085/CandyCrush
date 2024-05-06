@@ -8,7 +8,7 @@ using System.Collections;
     16.07.2020 - first
  */
 
-namespace Mkey
+namespace H2910.Level
 {
     class MathMk
     {

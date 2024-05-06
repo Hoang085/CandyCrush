@@ -1,4 +1,4 @@
-using System;
+/*using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,14 +26,6 @@ namespace H2910.Analytics
                     levelParam.Add((AnalyticLevelParam)param, 0);
             }
             timeStartLevel = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
-        }
-
-        public void BeginPlayLevel(MapInfo mapInfo)
-        {
-            timeStartLevel = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
-            PlayerData.Instance.PlayerMapInfo.CheckReplay(mapInfo);
-            goldBeforLevel = PlayerData.Instance.PlayerProp.Gold;
-            gemBeforLevel = PlayerData.Instance.PlayerProp.Gem;
         }
 
         public void LogEvent(string eventID, params Param[] lstParam)
@@ -124,7 +116,7 @@ namespace H2910.Analytics
                       new Param(AnalyticParam.slash_skill_level, PlayerData.Instance.PlayerProp.GetCurrentSkill(SkillUpgradeType.Skill2)),
                       new Param(AnalyticParam.critical_skill_level, PlayerData.Instance.PlayerProp.GetCurrentSkill(SkillUpgradeType.Skill3)),
                       new Param(AnalyticParam.evade_skill_level, PlayerData.Instance.PlayerProp.GetCurrentSkill(SkillUpgradeType.Skill4)),
-                      new Param(AnalyticParam.hp_level, PlayerData.Instance.PlayerProp.GetCurrentSkill(SkillUpgradeType.Skill5)),*/
+                      new Param(AnalyticParam.hp_level, PlayerData.Instance.PlayerProp.GetCurrentSkill(SkillUpgradeType.Skill5)),#1#
                     new Param(AnalyticParam.hp_remain, (int)MainStats.Instance.CurrentHealth),
                     new Param(AnalyticLevelParam.kills, levelParam[AnalyticLevelParam.kills]),
                     new Param(AnalyticLevelParam.victory_action, victoryAction),
@@ -195,7 +187,7 @@ namespace H2910.Analytics
                     new Param(AnalyticLevelParam.golds, PlayerData.Instance.PlayerProp.AllCoin / 500),
                     new Param(AnalyticLevelParam.gem_before_level, gemBeforLevel / 10),
                     new Param(AnalyticLevelParam.gem, PlayerData.Instance.PlayerProp.AllGem / 10),
-                    /*MultiCharacternew Param(AnalyticParam.total_skill_level, PlayerData.Instance.PlayerProp.GetTotalSkill()),*/
+                    /*MultiCharacternew Param(AnalyticParam.total_skill_level, PlayerData.Instance.PlayerProp.GetTotalSkill()),#1#
                     new Param(AnalyticLevelParam.kills, levelParam[AnalyticLevelParam.kills]),
                     new Param(AnalyticLevelParam.miniboss_kill, levelParam[AnalyticLevelParam.miniboss_kill]),
                     new Param(AnalyticLevelParam.use_grease, levelParam[AnalyticLevelParam.use_grease]),
@@ -233,7 +225,7 @@ namespace H2910.Analytics
                     new Param(AnalyticParam.slash_skill_level, PlayerData.Instance.PlayerProp.GetCurrentSkill(Defines.SkillUpgradeType.Skill2)),
                     new Param(AnalyticParam.critical_skill_level, PlayerData.Instance.PlayerProp.GetCurrentSkill(Defines.SkillUpgradeType.Skill3)),
                     new Param(AnalyticParam.evade_skill_level, PlayerData.Instance.PlayerProp.GetCurrentSkill(Defines.SkillUpgradeType.Skill4)),
-                    new Param(AnalyticParam.hp_level, PlayerData.Instance.PlayerProp.GetCurrentSkill(Defines.SkillUpgradeType.Skill5)),*/
+                    new Param(AnalyticParam.hp_level, PlayerData.Instance.PlayerProp.GetCurrentSkill(Defines.SkillUpgradeType.Skill5)),#1#
                     new Param(AnalyticParam.die_time, timeDie));
         }
 
@@ -368,7 +360,7 @@ namespace H2910.Analytics
                      new Param(AnalyticParam.slash_skill_level, PlayerData.Instance.PlayerProp.GetCurrentSkill(Defines.SkillUpgradeType.Skill2)),
                      new Param(AnalyticParam.critical_skill_level, PlayerData.Instance.PlayerProp.GetCurrentSkill(Defines.SkillUpgradeType.Skill3)),
                      new Param(AnalyticParam.evade_skill_level, PlayerData.Instance.PlayerProp.GetCurrentSkill(Defines.SkillUpgradeType.Skill4)),
-                     new Param(AnalyticParam.hp_level, PlayerData.Instance.PlayerProp.GetCurrentSkill(Defines.SkillUpgradeType.Skill5)),*/
+                     new Param(AnalyticParam.hp_level, PlayerData.Instance.PlayerProp.GetCurrentSkill(Defines.SkillUpgradeType.Skill5)),#1#
                     new Param(AnalyticLevelParam.level_highest, PlayerData.Instance.PlayerMapInfo.GetHighestLevel()),
                     new Param(AnalyticParam.type, type),
                     new Param(AnalyticParam.ads_remain, adsRemain),
@@ -661,4 +653,4 @@ namespace H2910.Analytics
         gem_use,
         id_longest,
     }
-}
+}*/

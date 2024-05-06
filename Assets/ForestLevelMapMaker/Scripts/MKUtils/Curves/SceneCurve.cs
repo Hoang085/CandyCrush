@@ -7,7 +7,7 @@ using UnityEngine.Events;
 	08.10.2019 - start
     15.07.2020 - add  public CRCurve Curve =>curve;
 */
-namespace Mkey
+namespace H2910.Level
 {
     [ExecuteInEditMode]
     public enum DisplayMode {None, Display, DisplaySelected }

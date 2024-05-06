@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using H2910.Map;
+using UnityEngine;
 using UnityEngine.UI;
 
-namespace Mkey
+namespace H2910.Level
 {
     public class LevelButton : MonoBehaviour
     {
@@ -12,13 +13,7 @@ namespace Mkey
         public Button button;
         public Text numberText;
         public bool Interactable { get; private set; }
-
-        /// <summary>
-        /// Set button interactable if button "active" or appropriate level is passed. Show stars or Lock image
-        /// </summary>
-        /// <param name="active"></param>
-        /// <param name="activeStarsCount"></param>
-        /// <param name="isPassed"></param>
+        
         internal void SetActive(bool active, int activeStarsCount, bool isPassed)
         {
             if (LeftStar)  LeftStar.SetActive(activeStarsCount > 1 && isPassed);
@@ -28,7 +23,7 @@ namespace Mkey
             if(button)  button.interactable = Interactable;
             if (active)
             {
-                MapController.Instance.ActiveButton = this;
+                MAPController.Instance.ActiveButton = this;
             }
 
             if(Lock) Lock.SetActive(!isPassed && !active);

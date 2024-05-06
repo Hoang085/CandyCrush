@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Collections;
 
-namespace Mkey
+namespace H2910.Level
 {
     public class MapController : MonoBehaviour
     {

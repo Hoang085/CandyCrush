@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using H2910.Level;
 using UnityEngine;
 
-namespace Mkey
+namespace H2910.Level
 {
     //[ExecuteInEditMode]
     public class RotateAvatar : MonoBehaviour
