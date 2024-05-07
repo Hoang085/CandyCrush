@@ -9,6 +9,6 @@ public class Tile : MonoBehaviour
 
     public void CheckTile(bool isOffset)
     {
-        sprite.color = isOffset ? offsetColor : baseColor;  
+        sprite.color = isOffset ? offsetColor : baseColor;
     }
 }

@@ -1,41 +1,52 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Dynamic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
 public class NodePiece : MonoBehaviour
 {
     [SerializeField] Candy[] candies;
-    [SerializeField] private SpriteRenderer sprite;
-    private Candy candyType;
-    private Node.NodeContent value;
-    public Point index;
+    [SerializeField] internal SpriteRenderer sprite;
+    internal Candy candyType;
+    public Point nodePieceIndex; //represent node piece position
+    internal bool updating;
+
+    public Node.NodeContent value;
+    public Node.PowerupType powerUpType;
 
     [HideInInspector]
     public Vector2 pos;
+
+    [HideInInspector]
+    public NodePiece piece;
 
     public void Initialize(Node.NodeContent val, Point p)
     {
         foreach (Candy candy in candies)
         {
-            if(val == candy.candyType)
+            if (val == candy.candyType)
             {
                 candyType = candy;
                 break;
             }
         }
+        //flippedPiece = null;
         value = val;
         SetIndex(p);
+        powerUpType = Node.PowerupType.Normal;
         sprite.sprite = candyType.candySprite;
+        piece = gameObject.GetComponent<NodePiece>();
     }
     public void SetIndex(Point p)
     {
-        index = p;
+        nodePieceIndex = p;
         ResetPosition();
-        UpdateName();
+        //UpdateName();
     }
     public void MovePosition(Vector2 dir)
     {
@@ -45,26 +56,39 @@ public class NodePiece : MonoBehaviour
     {
         transform.position = Vector2.Lerp(transform.position, dir, Time.deltaTime * 32);
     }
-    private void ResetPosition() 
-    //Whenever the index of the game piece changes, the position needs to be updated to match the new index
+    internal void ResetPosition()
     {
-        pos = index.PointToVector() * 2;
-        print(pos);
+        pos = nodePieceIndex.PointToVector(); //reset position to its current index
     }
+    internal bool UpdatePiece(float scale)
+    {
+        if (Vector3.Distance(transform.position, pos) > 0) //check if piece position has changed
+                                                           //pos should be the position of the tile it get dragged toward
+        {
+            MovePositionTo(pos);
+            updating = true;
+            GameObject pieceTile = GameObject.Find($"Tile {pos.x / scale} {pos.y / scale}");
+            transform.SetParent(pieceTile.transform);
+        }
+        else
+        {
+            updating = false;
+        }
+        return updating;
+    }
+
     private void UpdateName()
     {
         transform.name = candyType.name;
     }
     private void OnMouseDown()
     {
-        Debug.Log("Grab " + transform.name);
         MovePieces.instance.MovePiece(this);
     }
 
     public void OnMouseUp()
     {
-        Debug.Log("Let go of " + transform.name);
-        MovePieces.instance.DropPiece(this);
+        MovePieces.instance.DropPiece();
     }
 
 }

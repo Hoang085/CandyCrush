@@ -40,9 +40,9 @@ public class Point //manage the 2D coordinate of the candies
     {
         return new Point((int)v.x, (int)v.y);
     }
-    public static Point Multiply(Point p, int m)
+    public static Point Multiply(Point p, float m)
     {
-        return new Point(p.x * m, p.y * m); 
+        return new Point((int)(p.x * m), (int)(p.y * m)); 
     }
     public static Point Add(Point p1, Point p2)
     {

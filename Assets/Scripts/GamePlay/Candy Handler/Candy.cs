@@ -9,5 +9,7 @@ public class Candy : ScriptableObject
 
     public Sprite candySprite;
 
+    public Sprite strippedCandySprite;
+
     public Node.NodeContent candyType;
 }

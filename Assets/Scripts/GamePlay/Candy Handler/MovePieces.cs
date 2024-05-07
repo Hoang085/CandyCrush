@@ -20,30 +20,32 @@ public class MovePieces : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(movingPiece != null)
+        if (movingPiece != null)
         {
             Vector2 dir = (Vector2)Input.mousePosition - mouseStart;
             Vector2 aDir = new Vector2(Mathf.Abs(dir.x), Mathf.Abs(dir.y));
 
-            newIndex = Point.Clone(movingPiece.index);
+            newIndex = Point.Clone(movingPiece.nodePieceIndex);
             Point addPos = Point.Zero;
-            if(dir.magnitude > 2) //if mouse move a distance longer than 64 pixel on the game board 
+            if (dir.magnitude > 32) //if mouse move a distance longer than 64 pixel on the game board 
             {
-                if(aDir.x > aDir.y)
+                if (aDir.x > aDir.y)
                 {
-                    addPos = new Point((dir.normalized.x > 0) ? 1 : -1 ,0);
+                    addPos = new Point((dir.normalized.x > 0) ? 1 : -1, 0);
                 }
-                else
+                else if (aDir.y > aDir.x)
                 {
-                    addPos = new Point(0, (dir.normalized.x > 0) ? 1 : -1);
+                    addPos = new Point(0, (dir.normalized.y > 0) ? 1 : -1);
                 }
             }
             newIndex.Add(addPos);
 
-            Vector2 pos = game.GetPositionFromPoint(movingPiece.index);
-            if(!newIndex.Equals(pos))
+            Vector2 pos = game.GetPositionFromPoint(movingPiece.nodePieceIndex); //getting position based on the index given when instantiating game pieces
+            if (!newIndex.Equals(pos))
             {
-                pos += Point.Multiply(addPos, 1).PointToVector(); //create movement when dragging the piece around
+                //print("Add pos: " + addPos.PointToVector());
+                pos += Point.Multiply(new Point(addPos.x, addPos.y), 1).PointToVector(); //create movement when dragging the piece around
+                //print("Pos: " + pos);
             }
             movingPiece.MovePositionTo(pos);
         }
@@ -54,10 +56,18 @@ public class MovePieces : MonoBehaviour
         movingPiece = piece;
         mouseStart = Input.mousePosition;
     }
-    public void DropPiece(NodePiece piece)
+    public void DropPiece()
     {
         if (movingPiece == null) return;
-        Debug.Log("Dropped");
-        movingPiece = null; 
+        if (!newIndex.Equal(movingPiece.nodePieceIndex))
+        //swap piece position if new index is not equal to the current moving piece
+        {
+            game.FlipPieces(movingPiece.nodePieceIndex, newIndex, true);
+        }
+        else
+        {
+            game.ResetPiece(movingPiece);
+        }
+        movingPiece = null;
     }
 }
