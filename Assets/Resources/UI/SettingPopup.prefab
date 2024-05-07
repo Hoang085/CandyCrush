@@ -2683,7 +2683,7 @@ MonoBehaviour:
   enableGoldUI: 0
   showingType: 0
   blockRaycast: {fileID: 0}
-  currentScreen: 0
+  currentScreen: 2
   termsOfServiceUrl: 
   privacyPolicyUrl: 
   buttonSettings: []
@@ -2691,9 +2691,9 @@ MonoBehaviour:
   textVersion: {fileID: 0}
   txtUserId: {fileID: 0}
   commingSoonObj: {fileID: 1417157973107460263}
-  inputSettings: []
   txtUserNameGoogle: {fileID: 0}
   btnGoogleInSetting: {fileID: 6645334387592447506}
+  btnFaceBookInSetting: {fileID: 0}
 --- !u!1 &4910383815185043698
 GameObject:
   m_ObjectHideFlags: 0
