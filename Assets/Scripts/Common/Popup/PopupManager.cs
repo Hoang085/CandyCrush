@@ -251,4 +251,4 @@ namespace H2910.UI.Popups
             goldPanel.GetComponent<GoldPanelController>().ToggleGoldBtnRaycast(enable);
         }
     }
-}
+}  

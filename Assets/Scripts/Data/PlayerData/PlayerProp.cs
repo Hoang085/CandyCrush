@@ -185,7 +185,6 @@ namespace H2910.PlayerData
                 LevelResolveStatus[i] = false;
             }
             CurrentIndexLevelResolve = -1;
-            UIManager.Instance.ResetCoolDownWisdomBtn();
         }
         internal void SaveLevelResolveStatus(int index)
         {

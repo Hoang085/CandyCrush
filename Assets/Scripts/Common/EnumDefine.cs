@@ -33,37 +33,12 @@ namespace H2910.Defines
     public enum PopupName
     {
         None, 
-        Inventory,
         Gate,
-        Notice,
-        Exchange,
-        GetItem,
-        Victory,
-        QuestPopup,
-        Menu,
-        QuestBoard,
         Setting,
-        RateUs,
-        LuckyWheel,
-        Garden,
-        Pack,
-        PackShop,
-        RewardPack,
-        Achievement,
         DailyReward,
-        ConfirmHealing,
-        Tutorial,
         Mail,
-        Rebirth,
-        Defeat,
-        Dialog,
         ShopAll,
         ChangeName,
-        Login,
-        VoiceOfWisdom,
-        SelectData,
-        NoticePlayOffline,
-        ConfirmUseItem
     }
 
     public enum LocalNotiType
@@ -72,16 +47,7 @@ namespace H2910.Defines
         DailyLoginReward =1,
         Test =99
     }
-
-    public enum DailyGiftType
-    {
-        GoldFree, 
-        GoldAds,
-        GemFree,
-        GemAds,
-        MaterialFree,
-        MaterialAds
-    }
+    
     public enum IAPType
     {
         Gem1,
@@ -151,6 +117,11 @@ namespace H2910.Defines
         Gold,
         Gem,
         Ads
+    }
+    public enum LoadingBgType
+    {
+        None,
+        MineralMine
     }
     
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using H2910.Common.Singleton;
 using H2910.Level;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace H2910.Map
@@ -34,7 +35,7 @@ namespace H2910.Map
         private int _biomesCount = 6;
 
         public static int CurrentLevel = 1;
-        public static int TopPassedLevel = 30;
+        public static int TopPassedLevel = 0;
 
         [Header("If true, then the map will scroll to the Active Level Button", order = 1)]
         public bool scrollToActiveButton = true;
@@ -69,6 +70,8 @@ namespace H2910.Map
                 {
                     CurrentLevel = scene;
                     //Load Level
+                    SceneManager.LoadScene("Level 1");
+
                 });
                 SetButtonActive(scene, (CurrentLevel == scene || scene == TopPassedLevel + 1),
                     (TopPassedLevel >= scene));

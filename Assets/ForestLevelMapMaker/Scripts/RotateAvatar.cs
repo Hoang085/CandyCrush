@@ -16,7 +16,7 @@ namespace H2910.Level
         public float acceler = 2.0f;
 
         private LevelButton activeButton;
-        private Canvas mainCanvas;
+        [SerializeField]private Canvas mainCanvas;
 
         void Start()
         {
@@ -26,7 +26,6 @@ namespace H2910.Level
         void Update()
         {
             activeButton = MapController.Instance.ActiveButton;
-            if (!mainCanvas) mainCanvas = MapController.Instance.parentCanvas;
 
             if (activeButton && mainCanvas)
             {

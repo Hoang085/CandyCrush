@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/GameCore/StartScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/GameCore/LevelScene.unity
+    path: Assets/Scenes/GameCore/Test.unity
     guid: 07c865b0b74e170458e5614ba4a5ea1a
+  - enabled: 1
+    path: Assets/Scenes/GameCore/Level/Level 1.unity
+    guid: 7cedb413c41eb4c43bdfc9b38a3344d7
   m_configObjects: {}
