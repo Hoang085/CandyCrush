@@ -15,4 +15,6 @@ MonoBehaviour:
   name: Lolipop
   candySprite: {fileID: -1373421363, guid: fa6a0ee7a2e43ad4681600dc9d687701, type: 3}
   strippedCandySprite: {fileID: -503363070, guid: fa6a0ee7a2e43ad4681600dc9d687701, type: 3}
+  bombCandySprite: {fileID: 369302110, guid: fa6a0ee7a2e43ad4681600dc9d687701, type: 3}
+  rainbowCandySprite: {fileID: 2018841459, guid: fa6a0ee7a2e43ad4681600dc9d687701, type: 3}
   candyType: 3

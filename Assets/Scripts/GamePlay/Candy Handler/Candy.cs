@@ -11,5 +11,9 @@ public class Candy : ScriptableObject
 
     public Sprite strippedCandySprite;
 
+    public Sprite bombCandySprite;
+
+    public Sprite rainbowCandySprite;
+
     public Node.NodeContent candyType;
 }

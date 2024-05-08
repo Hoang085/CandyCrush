@@ -25,6 +25,14 @@ public class NodePiece : MonoBehaviour
     [HideInInspector]
     public NodePiece piece;
 
+    private void OnDisable()
+    {
+        if (powerUpType == Node.PowerupType.Normal) return;
+
+        print("Convert back to normal");
+        powerUpType = Node.PowerupType.Normal;
+        sprite.sprite = candyType.candySprite; 
+    }
     public void Initialize(Node.NodeContent val, Point p)
     {
         foreach (Candy candy in candies)
@@ -67,8 +75,6 @@ public class NodePiece : MonoBehaviour
         {
             MovePositionTo(pos);
             updating = true;
-            GameObject pieceTile = GameObject.Find($"Tile {pos.x / scale} {pos.y / scale}");
-            transform.SetParent(pieceTile.transform);
         }
         else
         {

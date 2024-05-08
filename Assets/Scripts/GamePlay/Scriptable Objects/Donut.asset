@@ -15,4 +15,6 @@ MonoBehaviour:
   name: Donut
   candySprite: {fileID: -837248956, guid: fa6a0ee7a2e43ad4681600dc9d687701, type: 3}
   strippedCandySprite: {fileID: -959602401, guid: fa6a0ee7a2e43ad4681600dc9d687701, type: 3}
+  bombCandySprite: {fileID: 153966963, guid: fa6a0ee7a2e43ad4681600dc9d687701, type: 3}
+  rainbowCandySprite: {fileID: 2018841459, guid: fa6a0ee7a2e43ad4681600dc9d687701, type: 3}
   candyType: 4

@@ -2,7 +2,9 @@ using H2910.GameCore;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Security.Policy;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -21,9 +23,10 @@ public class Match3 : MonoBehaviour
     [Header("Board Grid")]
     public ArrayLayout boardLayout;
     private Node[,] gameBoard;
-    public static int width = 10;
-    public static int height = 20;
+    public static int width = 9;
+    public static int height = 9;
     int[] fills; //keeping track of how many time we need to fill a blank hole on each colume 
+    int matchSideCount = 0; //a counter for each matching side
 
     [SerializeField] Camera mainCam;
 
@@ -58,18 +61,12 @@ public class Match3 : MonoBehaviour
 
             Point pieceTrueIndex = Point.Multiply(piece.nodePieceIndex, 1 / tile.transform.localScale.x);
             //index need to be scaled down for IsConnected function to work perfectly
+            matchSideCount = 0; //reset
 
             List<Point> connected = IsConnected(pieceTrueIndex, true, piece.powerUpType);
 
-            if (connected.Count == 4) //remove piece from being killed and convert it to special piece
-            {
-                print("Convert to Special");
-
-                connected.Remove(connected.Last()); //prevent the swiped piece to be removed if match 4
-
-                piece.powerUpType = PowerupType.Stripped;
-                piece.sprite.sprite = piece.candyType.strippedCandySprite;
-            }
+            print("Match Side: " + matchSideCount);
+            SpecialMatch(connected, piece); //check for special match
 
             bool wasFlipped = (flip != null);
             if (wasFlipped) //if flipped then make proceed to check if piece matches with other piece
@@ -94,7 +91,7 @@ public class Match3 : MonoBehaviour
                 {
                     Node node = GetNodeAtPoint(point);
                     NodePiece nodePiece = node.GetPiece();
-                    KillPiece(point, nodePiece.GetComponentInChildren<SpriteRenderer>());
+                    KillPiece(point, nodePiece.GetComponentInChildren<SpriteRenderer>()); //problem
 
                     if (nodePiece != null)
                     {
@@ -109,6 +106,38 @@ public class Match3 : MonoBehaviour
             flippedPieces.Remove(flip); //remove the piece in flip list after update
             updatePieces.Remove(piece);
         }
+    }
+
+    private void SpecialMatch(List<Point> connected, NodePiece piece)
+    {
+        if (connected.Count == 4) //remove piece from being killed and convert it to special piece
+        {
+            print("Convert to Stripped");
+
+            connected.Remove(connected.Last()); //prevent the swiped piece to be removed if match 4
+
+            piece.powerUpType = PowerupType.Stripped;
+            piece.sprite.sprite = piece.candyType.strippedCandySprite;
+        }
+        else if (connected.Count == 5 && matchSideCount == 2) //remove piece from being killed and convert it to special piece
+        {
+            print("Convert to Bomb");
+
+            connected.Remove(connected.Last()); //prevent the swiped piece to be removed if match 4
+
+            piece.powerUpType = PowerupType.Bomb;
+            piece.sprite.sprite = piece.candyType.bombCandySprite;
+        }
+        else if (connected.Count == 5 && matchSideCount == 3) //remove piece from being killed and convert it to special piece
+        {
+            print("Convert to Rainbow");
+
+            connected.Remove(connected.Last()); //prevent the swiped piece to be removed if match 4
+
+            piece.powerUpType = PowerupType.Rainbow;
+            piece.sprite.sprite = piece.candyType.rainbowCandySprite;
+        }
+        matchSideCount = 0;
     }
 
     private void KillPiece(Point point, SpriteRenderer deadSprite)
@@ -317,6 +346,7 @@ public class Match3 : MonoBehaviour
     {
         List<Point> connectedNode = new List<Point>();
         var value = GetNodeValueType(p);
+        
         Point[] direction =
         {
             Point.Up,
@@ -341,6 +371,8 @@ public class Match3 : MonoBehaviour
             }
             if (same > 1) //if there are more than 1 same shape in this direction then we would know that it's a match 
             {
+                if(main) matchSideCount++;
+
                 AddPoint(ref connectedNode, line); //add these points to the overarching connectedNode list
             }
         }
@@ -361,8 +393,9 @@ public class Match3 : MonoBehaviour
             }
             if (same > 1)
             {
-                AddPoint(ref connectedNode, line); //add these points to the overarching connectedNode list
+                if (main) matchSideCount++;
 
+                AddPoint(ref connectedNode, line); //add these points to the overarching connectedNode list
             }
         }
 
@@ -370,7 +403,11 @@ public class Match3 : MonoBehaviour
         {
             for (int i = 0; i < connectedNode.Count; i++)
             {
-                AddPoint(ref connectedNode, IsConnected(connectedNode[i], false, type));
+                Node checkNode = GetNodeAtPoint(connectedNode[i]);
+                NodePiece checkPiece = checkNode.GetPiece();
+                var powerUp = checkPiece != null ? checkPiece.powerUpType : PowerupType.Normal;
+
+                AddPoint(ref connectedNode, IsConnected(connectedNode[i], false, powerUp));
             }
         }
         switch (type)
@@ -378,21 +415,47 @@ public class Match3 : MonoBehaviour
             case PowerupType.Normal:
                 return connectedNode;
             case PowerupType.Stripped:
-                print("Stripped Pattern");
+                if (connectedNode.Count == 0) return connectedNode; //return immediately if there are no connected piece
+
                 List<Point> candyColumn = new List<Point>();
-                for(int y = 0; y < height; y++)
+                if(value == NodeContent.Lolipop || value == NodeContent.WrappedCandy) //vertical pattern
                 {
-                    Point point = new Point(p.x, y);
+                    for (int y = 0; y < height; y++)
+                    {
+                        bool isDuplicate = false;
+                        Point point = new Point(p.x, y);
 
-                    //if (!connectedNode.Any(duplicatePoint => duplicatePoint.Equals(point)))
-                    //{
-                    //    print("Skip dup piece");
-                    //    continue;
-                    //}
+                        if (connectedNode.Any(checkPoint => checkPoint.Equal(point))) isDuplicate = true;
 
-                    candyColumn.Add(point);
+                        print("is duplicated: " + isDuplicate);
+                        if (isDuplicate) continue;
+
+                        candyColumn.Add(point);
+                    }
                 } 
+                else if(value == NodeContent.Donut || value == NodeContent.HardCandy) //horizontal pattern
+                {
+                    for (int x = 0; x < width; x++)
+                    {
+                        bool isDuplicate = false;
+                        Point point = new Point(x, p.y);
+
+                        if (connectedNode.Any(checkPoint => checkPoint.Equal(point))) isDuplicate = true;
+
+                        print("is duplicated: " + isDuplicate);
+                        if (isDuplicate) continue;
+
+                        candyColumn.Add(point);
+                    }
+                }
                 connectedNode.AddRange(candyColumn);
+
+                return connectedNode;
+            case PowerupType.Bomb:
+                //bomb here
+                return connectedNode;
+            case PowerupType.Rainbow:
+                //rainbow here
                 return connectedNode;
             default:
                 return null;   
