@@ -60,7 +60,7 @@ namespace H2910.UI.Popups
         public void OnShowScreen(PopupName scr, ParentPopup parent = ParentPopup.Default)
         {
             this.OnCheckScreen(scr, parent);
-            GameConfig.Instance.PauseGame(true);
+            //GameConfig.Instance.PauseGame(true);
             if (parent == ParentPopup.Default)
             {
                 CurrentPopup = scr;

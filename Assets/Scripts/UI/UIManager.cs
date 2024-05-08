@@ -23,7 +23,7 @@ public class UIManager : ManualSingletonMono<UIManager>
     private void BlockMultyClick()
     {
         _onClick = true;
-        DOVirtual.DelayedCall(0.1f, () => { _onClick = false; });
+        DOVirtual.DelayedCall(0.5f, () => { _onClick = false; });
     }    
     
     public void SetBlockClick(bool isBlock)
